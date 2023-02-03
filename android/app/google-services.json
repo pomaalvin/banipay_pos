@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "43204267420",
+    "project_id": "banipay-4e717",
+    "storage_bucket": "banipay-4e717.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43204267420:android:6a5cb30f35ed23198dcc59",
+        "android_client_info": {
+          "package_name": "com.banilabs.banipay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43204267420-ifvcjoq0rmpos1v0bttspivfrdehgkep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.banilabs.banipay",
+            "certificate_hash": "acb87e4eafc83beb4f2d27e71124a0f3cb7ff6ea"
+          }
+        },
+        {
+          "client_id": "43204267420-8j92qnech4o0nlc0tpjpvn2r5v8fqmo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl_-Zs4uyd5gS9O1osZ7yqMEFAqMp2g94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43204267420-8j92qnech4o0nlc0tpjpvn2r5v8fqmo8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "43204267420-ijcaq77v2cvag4g83rr8gv2vd97tk43r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.banilabs.baniPayApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43204267420:android:20be7e56e1795f8e8dcc59",
+        "android_client_info": {
+          "package_name": "com.banipay.com.banipay_pos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43204267420-8j92qnech4o0nlc0tpjpvn2r5v8fqmo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl_-Zs4uyd5gS9O1osZ7yqMEFAqMp2g94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43204267420-8j92qnech4o0nlc0tpjpvn2r5v8fqmo8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "43204267420-ijcaq77v2cvag4g83rr8gv2vd97tk43r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.banilabs.baniPayApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43204267420:android:f9ccc7c90dc028318dcc59",
+        "android_client_info": {
+          "package_name": "com.example.bani_pay_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43204267420-8j92qnech4o0nlc0tpjpvn2r5v8fqmo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl_-Zs4uyd5gS9O1osZ7yqMEFAqMp2g94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43204267420-8j92qnech4o0nlc0tpjpvn2r5v8fqmo8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "43204267420-ijcaq77v2cvag4g83rr8gv2vd97tk43r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.banilabs.baniPayApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
