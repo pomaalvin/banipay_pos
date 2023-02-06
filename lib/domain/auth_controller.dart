@@ -66,22 +66,28 @@ class AuthController extends GetxController{
          status.value=AuthStatus.noAuth;
        }
      }
-     catch(err){
-       log(err.toString());
+     on DioError catch (err){
+       Get.showSnackbar(GetSnackBar(title: "Error",message: err.response?.data.toString(),isDismissible: true,duration: Duration(seconds: 3)));
        Get.offNamedUntil(RoutesKeys.loginLink, (route) => false);
+     }
+     catch(err){
+       Get.showSnackbar(GetSnackBar(title: "Error",message: err.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+        Get.offNamedUntil(RoutesKeys.loginLink, (route) => false);
      }
 
 
    }
 
-   logout()async{
+   logout({bool redirect=true})async{
 
      final prefs = await SharedPreferences.getInstance();
      await prefs.remove('token');
      await prefs.remove('userId');
      await prefs.remove('businessId');
      status.value=AuthStatus.noAuth;
-     Get.offNamedUntil(RoutesKeys.loginLink, (route) => false);
+     if(redirect){
+       Get.offNamedUntil(RoutesKeys.loginLink, (route) => false);
+     }
    }
 
    login(String email, String password)async{
@@ -131,9 +137,19 @@ class AuthController extends GetxController{
            status.value=AuthStatus.noAuth;
          }
        }
+       on DioError catch (err){
+         if(err.response?.data["status"]==401){
+           Get.showSnackbar(const GetSnackBar(title: "Error",message: "Correo o contraseña incorrectos",isDismissible: true,duration: Duration(seconds: 3)));
+         }
+         else{
+           Get.showSnackbar(GetSnackBar(title: "Error",message: err.response?.data.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+         }
+         log(err.response?.data.toString()??"");
+         logout(redirect: false);
+       }
        catch(err){
          log(err.toString());
-         logout();
+         logout(redirect: false);
        }
    }
 

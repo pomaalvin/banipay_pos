@@ -30,11 +30,22 @@ class ListController extends GetxController{
           "$_pagosUrl/${_authController.posId}/${_authController.affiliate.value?.id}",
           options: Options(responseType: ResponseType.json)
       );
+
       listTransactions.value=
           List.from(response.data.map((e)=>Movement.fromJson(e)));
+      listTransactions.value.sort((a, b) {
+        return b.paymentDate.compareTo(a.paymentDate);
+      },);
       listTransactionsSearch.value=
           List.from(response.data.map((e)=>Movement.fromJson(e)));
+      listTransactionsSearch.value.sort((a, b) {
+        return b.paymentDate.compareTo(a.paymentDate);
+      },);
       listStatus.value=ListStatus.success;
+    }
+    on DioError catch (err){
+      Get.showSnackbar(GetSnackBar(title: "Error",message: err.response?.data.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+      listStatus.value=ListStatus.init;
     }
     catch(error){
       listStatus.value=ListStatus.init;
@@ -53,10 +64,10 @@ class ListController extends GetxController{
     searchStatus.value=true;
 
       listTransactionsSearch.value=List.from(listTransactions.value.where((element) {
-        return element.paymentStatus.toLowerCase().startsWith(search.toLowerCase())
-          || element.nameOrSocialReason.toLowerCase().startsWith(search.toLowerCase())
-            || element.paymentMethod.toLowerCase().startsWith(search.toLowerCase())
-            || element.paymentAmount.toString().toLowerCase().startsWith(search.toLowerCase());
+        return element.paymentStatus.toLowerCase().contains(search.toLowerCase())
+          || element.nameOrSocialReason.toLowerCase().contains(search.toLowerCase())
+            || element.paymentMethod.toLowerCase().contains(search.toLowerCase())
+            || element.paymentAmount.toString().toLowerCase().contains(search.toLowerCase());
       }));
   }
 }

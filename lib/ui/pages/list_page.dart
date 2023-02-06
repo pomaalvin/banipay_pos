@@ -97,7 +97,7 @@ class ListPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 BpText.body(color: BpColors.tertiary, text: listController.listTransactionsSearch.value[index].paymentAmount.toStringAsFixed(2),fontWeight: FontWeight.w600),
-                                BpText.label(color: BpColors.tertiary.withOpacity(0.8), text: listController.listTransactionsSearch.value[index].paymentStatus,fontWeight: FontWeight.w600),
+                                BpText.label(color: listController.listTransactionsSearch.value[index].paymentStatus=="PROCESADO"?const Color(0xff0c861d):BpColors.tertiary.withOpacity(0.8), text: listController.listTransactionsSearch.value[index].paymentStatus,fontWeight: FontWeight.w600),
                               ],
                             )
                           );

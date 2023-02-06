@@ -254,6 +254,7 @@ class CalculatorPage extends StatelessWidget {
                                       bgColor: const Color(0xff0FA8D5),
                                       text: "Soli",
                                       onPressed: (){
+
                                         if(_calc.numList.value.length==1&&_calc.numList.value[0]>0){
                                           Get.toNamed(RoutesKeys.soliLink,arguments: {"amount":_calc.numList.value[0]} );
                                         }

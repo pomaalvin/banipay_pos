@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 enum ItemNavActive{cal,lis,set}
 class BpBottomNav extends StatelessWidget {
   final ItemNavActive itemNavActive;
-  const BpBottomNav({Key? key,required this.itemNavActive}) : super(key: key);
+  final bool lock;
+  const BpBottomNav({Key? key,this.lock=false,required this.itemNavActive}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class BpBottomNav extends StatelessWidget {
             child: _BpNavItem(
               icon: Icons.list_alt,
               active: itemNavActive==ItemNavActive.lis,
-              onPressed: (){
+              onPressed: lock?(){}:(){
                 Get.toNamed(RoutesKeys.listLink);
               },
             ),
@@ -26,7 +27,7 @@ class BpBottomNav extends StatelessWidget {
             child: _BpNavItem(
               icon: Icons.calculate,
               active: itemNavActive==ItemNavActive.cal,
-              onPressed: (){
+              onPressed: lock?(){}:(){
                 Get.toNamed(RoutesKeys.calculatorLink);
               },
             ),
@@ -35,8 +36,8 @@ class BpBottomNav extends StatelessWidget {
             child: _BpNavItem(
               icon: Icons.settings,
               active: itemNavActive==ItemNavActive.set,
-              onPressed: (){
-                Get.toNamed(RoutesKeys.configLink);
+              onPressed: lock?(){}:(){
+                Get.offNamedUntil(RoutesKeys.configLink, (route) => false);
               },
             ),
           )

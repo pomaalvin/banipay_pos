@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:banipay_pos/domain/auth_controller.dart';
 import 'package:banipay_pos/domain/models/qr_response.dart';
 import 'package:banipay_pos/ui/values/routes_keys.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -15,19 +17,30 @@ class QrController extends GetxController{
   final String _qrUrl="https://v2.banipay.me/api/pagos/qr-payment";
 
   Rx<QrResponse?> qrResponse=Rx<QrResponse?>(null);
+  StreamSubscription? notification;
 
   @override
   void onInit() {
+    print("hola");
     checkNotifications();
     super.onInit();
   }
+  @override
+  void dispose(){
+    if(notification!=null){
+      notification!.cancel();
+    }
+    super.dispose();
+
+    
+  }
+
   checkNotifications() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    notification=FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log(message.data.toString());
       log(message.data["idPos"]);
       if(message.data["idPos"]==_authController.posId){
         status.value=QrStatus.success;
-        Get.snackbar("Exito", "La transaccion se completo correctamente");
       }
     },onError: (error){
       print(error);
@@ -129,7 +142,7 @@ class QrController extends GetxController{
     }
     on DioError catch (error){
       log(error.toString());
-      Get.showSnackbar(GetSnackBar(title: "Error",message: error.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+      Get.showSnackbar(GetSnackBar(title: "Error",message: error.response?.data.toString(),isDismissible: true,duration: Duration(seconds: 3)));
 
     status.value=QrStatus.init;
     }

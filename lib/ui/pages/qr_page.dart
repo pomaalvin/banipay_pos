@@ -123,7 +123,7 @@ class QrPage extends StatelessWidget {
                       bgColor: const Color(0xff00377C),
                       loading: qr.status.value==QrStatus.loading,
                       bpButtonSize: BpButtonSize.big,
-                      text: "Siguiente",
+                      text: "Generar QR",
                       onPressed: (){
                         if(keyForm.currentState?.validate()??false){
                           qr.sendQr(

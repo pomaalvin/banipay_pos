@@ -1,6 +1,7 @@
 import 'package:banipay_pos/domain/auth_controller.dart';
 import 'package:banipay_pos/ui/values/routes_keys.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 enum TigoStatus{
   loading,init
@@ -73,6 +74,10 @@ class TigoController extends GetxController{
       status.value=TigoStatus.init;
       Get.toNamed(RoutesKeys.tigoVerifyLink,arguments: {"phone": telefono});
     }
+    on DioError catch (err){
+      Get.showSnackbar(GetSnackBar(title: "Error",message: err.response?.data.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+      status.value=TigoStatus.init;
+    }
     catch (error){
       print(error);
       status.value=TigoStatus.init;
@@ -83,15 +88,34 @@ class TigoController extends GetxController{
   var transaction="";
 
   validatePago()async{
-    status.value=TigoStatus.loading;
-    var response = await Dio().get(
-        "$_tigoVerifyUrl/$paymentId/$transaction",
-        options: Options(responseType: ResponseType.json)
-    );
-    print("$_tigoVerifyUrl/$paymentId/$transaction");
-    print(response.data);
-    status.value=TigoStatus.init;
-    Get.offNamedUntil(RoutesKeys.calculatorLink, (route) => false);
-    Get.showSnackbar(const GetSnackBar(title: "Éxito",message: "Transaccion confirmada",isDismissible: true,duration: Duration(seconds: 3)));
+    try{
+      status.value=TigoStatus.loading;
+      var response = await Dio().get(
+          "$_tigoVerifyUrl/$paymentId/$transaction",
+          options: Options(responseType: ResponseType.json)
+      );
+      print("$_tigoVerifyUrl/$paymentId/$transaction");
+      print(response.data);
+      if(response.data["errorCode"]!=""&&response.data["errorCode"]!=null||response.data["transactionCode"]==null){
+        Get.showSnackbar(const GetSnackBar(title: "Error",message: "No se pudo completar la transacción",backgroundColor: Color(
+            0xff901f1f),isDismissible: true,duration: Duration(seconds: 3)));
+      }
+      else{
+        Get.showSnackbar(const GetSnackBar(title: "Éxito",message: "Transaccion confirmada",isDismissible: true,duration: Duration(seconds: 3)));
+      }
+      status.value=TigoStatus.init;
+      Get.offNamedUntil(RoutesKeys.calculatorLink, (route) => false);
+
+    }
+    on DioError catch (err){
+      Get.showSnackbar(GetSnackBar(title: "Error",backgroundColor: const Color(
+          0xff901f1f),message: err.response?.data.toString(),isDismissible: true,duration: const Duration(seconds: 3)));
+      status.value=TigoStatus.init;
+    }
+    catch(err){
+      Get.showSnackbar(GetSnackBar(title: "Error",message: err.toString(),backgroundColor: const Color(
+          0xff901f1f),isDismissible: true,duration: const Duration(seconds: 3)));
+      status.value=TigoStatus.init;
+    }
   }
 }

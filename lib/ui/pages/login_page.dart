@@ -20,64 +20,68 @@ class LoginPage extends StatelessWidget {
         padding: const EdgeInsets.all(30),
         child: Form(
           key: keyForm,
-          child: Column(
-            children: [
-              const SizedBox(height: 100,),
-              Image.asset(
-                  "assets/banipay_logo.png",
-                height: 70,
-              ),
-              const SizedBox(height: 50,),
-              BpInput(
-                onChanged: (value){
+          child: AutofillGroup(
+            child: Column(
+              children: [
+                const SizedBox(height: 100,),
+                Image.asset(
+                    "assets/banipay_logo.png",
+                  height: 70,
+                ),
+                const SizedBox(height: 50,),
+                BpInput(
+                  onChanged: (value){
 
-                },
-                label: "Correo Electrónico",
-                validator: (value){
-                  if(value==null||value.isEmpty){
-                    return "Ingrese el correo";
-                  }
-                  if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      .hasMatch(value)){
-                    return "Ingrese un correo válido";
-                  }
-                  return null;
                   },
-                hint: "",
-                inputType: InputType.email,
-                controller: email,
-              ),
-              const SizedBox(height: 10,),
-              BpInput(
-                onChanged: (value){
-
-                },
-                validator: (value){
-                  if(value==null||value.isEmpty){
-                    return "Ingrese la contraseña";
-                  }
-                  return null;
-                },
-                label: "Contraseña",
-                hint: "",
-                inputType: InputType.password,
-                controller: password,
-              ),
-              const SizedBox(height: 20,),
-              Obx(() {
-                return BpButton(
-                    bpButtonType: BpButtonType.primary,
-                    bpButtonSize: BpButtonSize.big,
-                    loading: auth.status.value==AuthStatus.loading,
-                    text: "Iniciar Sesion",
-                    onPressed: (){
-                      if(keyForm.currentState?.validate()??false){
-                        auth.login(email.value.text, password.value.text);
-                      }
+                  autoFillHints: const [AutofillHints.email],
+                  label: "Correo Electrónico",
+                  validator: (value){
+                    if(value==null||value.isEmpty){
+                      return "Ingrese el correo";
                     }
-                );
-              },)
-            ],
+                    if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)){
+                      return "Ingrese un correo válido";
+                    }
+                    return null;
+                    },
+                  hint: "",
+                  inputType: InputType.email,
+                  controller: email,
+                ),
+                const SizedBox(height: 10,),
+                BpInput(
+                  onChanged: (value){
+
+                  },
+                  autoFillHints: const [AutofillHints.password],
+                  validator: (value){
+                    if(value==null||value.isEmpty){
+                      return "Ingrese la contraseña";
+                    }
+                    return null;
+                  },
+                  label: "Contraseña",
+                  hint: "",
+                  inputType: InputType.password,
+                  controller: password,
+                ),
+                const SizedBox(height: 20,),
+                Obx(() {
+                  return BpButton(
+                      bpButtonType: BpButtonType.primary,
+                      bpButtonSize: BpButtonSize.big,
+                      loading: auth.status.value==AuthStatus.loading,
+                      text: "Iniciar Sesion",
+                      onPressed: (){
+                        if(keyForm.currentState?.validate()??false){
+                          auth.login(email.value.text, password.value.text);
+                        }
+                      }
+                  );
+                },)
+              ],
+            ),
           ),
         ),
       )

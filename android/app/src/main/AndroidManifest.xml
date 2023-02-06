@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.banipay.com.banipay_pos">
    <application
-        android:label="banipay_pos"
+        android:label="Banipay POS"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:banipay_pos/domain/auth_controller.dart';
 import 'package:banipay_pos/ui/values/routes_keys.dart';
 import 'package:dio/dio.dart';
@@ -66,7 +68,7 @@ class SoliController extends GetxController{
             "extension": ciExt,
             "complement": ciCom,
             "firstname": nombre,
-            "lastname": "Alejo",
+            "lastname": "",
             "email": email.isNotEmpty?email:"example@gmail.com",
             "country": _authController.affiliate.value?.country,
             "city": _authController.affiliate.value?.city,
@@ -80,8 +82,13 @@ class SoliController extends GetxController{
       print(response.data);
       Get.toNamed(RoutesKeys.soliVerifyLink);
     }
+    on DioError catch (err){
+      Get.showSnackbar(GetSnackBar(title: "Error",message: err.response?.data.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+      status.value=SoliStatus.init;
+    }
     catch (error){
-      print(error);
+      Get.showSnackbar(GetSnackBar(title: "Error",message: error.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+
       status.value=SoliStatus.init;
     }
   }
@@ -133,8 +140,13 @@ class SoliController extends GetxController{
       }
       status.value=SoliStatus.init;
     }
+    on DioError catch (err){
+      Get.showSnackbar(GetSnackBar(title: "Error",message: err.response?.data.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+      status.value=SoliStatus.init;
+    }
     catch (error){
-      print(error);
+      Get.showSnackbar(GetSnackBar(title: "Error",message: error.toString(),isDismissible: true,duration: Duration(seconds: 3)));
+      log(error.toString());
       status.value=SoliStatus.init;
     }
   }
